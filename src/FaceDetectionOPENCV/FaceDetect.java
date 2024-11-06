@@ -26,12 +26,12 @@ import org.opencv.objdetect.CascadeClassifier;
 public class FaceDetect {
     
     public static BufferedImage MatToBufferedImage(Mat mat) throws IOException{
-      //Encoding the image
+    
       MatOfByte matOfByte = new MatOfByte();
       Imgcodecs.imencode(".jpg", mat, matOfByte);
-      //Storing the encoded Mat in a byte array
+      
       byte[] byteArray = matOfByte.toArray();
-      //Preparing the Buffered Image
+      
       InputStream in = new ByteArrayInputStream(byteArray);
       BufferedImage bufImage = ImageIO.read(in);
       return bufImage;
@@ -48,16 +48,7 @@ public class FaceDetect {
 
         MatOfRect faceDetections = new MatOfRect();
         faceDetector.detectMultiScale(image, faceDetections);
-
-        /*for (Rect rect : faceDetections.toArray()) {
-            Imgproc.rectangle(
-                    image, new Point(rect.x, rect.y),
-                    new Point(rect.x + rect.width, rect.y + rect.height),
-                    new Scalar(0, 255, 0),
-                    2
-                    );
-        }*/
-
+        
         return faceDetections;
         
     } 
