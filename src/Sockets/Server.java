@@ -20,14 +20,14 @@ public class Server {
             Socket clientSocket = serverSocket.accept();
             System.out.println("Cliente conectado.");
 
-            // Abrindo a captura de vídeo
+            
             VideoCapture camera = new VideoCapture(0);
             if (!camera.isOpened()) {
                 System.out.println("Erro ao abrir a câmera.");
                 return;
             }
 
-            // Stream de saída para enviar dados ao cliente
+           
             ObjectOutputStream outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
 
             Mat frame = new Mat();
@@ -35,11 +35,11 @@ public class Server {
 
             while (true) {
                 if (camera.read(frame)) {
-                    // Codificando o frame como JPEG e convertendo para array de bytes
+                   
                     Imgcodecs.imencode(".jpg", frame, matOfByte);
                     byte[] imageBytes = matOfByte.toArray();
 
-                    // Enviando o array de bytes
+                    
                     outputStream.writeObject(imageBytes);
                     outputStream.flush();
 
