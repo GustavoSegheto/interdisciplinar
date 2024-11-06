@@ -36,22 +36,22 @@ public class Client {
             frame.setVisible(true);
 
             int frameCounter = 0;
-            Rect[] storedFaceDetections = new Rect[0]; // Array para armazenar as detecções anteriores
+            Rect[] storedFaceDetections = new Rect[0]; 
 
             while (true) {
-                // Recebendo os bytes da imagem
+                
                 byte[] bytes = (byte[]) inputStream.readObject();
 
-                // Decodificando os bytes para um Mat
+                
                 Mat image = Imgcodecs.imdecode(new MatOfByte(bytes), Imgcodecs.IMREAD_UNCHANGED);
 
-                // Atualiza as detecções de rosto apenas a cada 6 frames
+               
                 if (frameCounter == 0) {
-                    MatOfRect faceDetections = FaceDetect.reconhecimento(image); // Chama o método de reconhecimento
-                    storedFaceDetections = faceDetections.toArray(); // Armazena as novas detecções
+                    MatOfRect faceDetections = FaceDetect.reconhecimento(image); 
+                    storedFaceDetections = faceDetections.toArray(); 
                 }
 
-                // Desenha os retângulos usando as detecções armazenadas
+               
                 for (Rect rect : storedFaceDetections) {
                     Imgproc.rectangle(
                             image, new Point(rect.x, rect.y),
@@ -61,14 +61,14 @@ public class Client {
                     );
                 }
 
-                // Converte o Mat (com retângulos) para BufferedImage e exibe
+                
                 BufferedImage buff = FaceDetect.MatToBufferedImage(image);
                 if (buff != null) {
                     label.setIcon(new ImageIcon(buff));
                     frame.repaint();
                 }
 
-                // Incrementa o contador ou reseta após 6 frames
+                
                 frameCounter = (frameCounter + 1) % 6;
             }
         } catch (Exception e) {
